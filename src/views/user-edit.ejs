@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Simple User CRUD – Tailwind</title>
-    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-50 text-gray-800 antialiased">
@@ -58,30 +57,30 @@
         <div class="grid gap-4 md:grid-cols-3">
           <div class="md:col-span-2 bg-white border rounded-2xl p-5 shadow-sm">
             <h2 class="text-lg font-semibold mb-4">Create / Edit User</h2>
-            <form  method="post" action="/users/criar" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form  method="post" action="/users/editar/<%= user.id %>" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Full Name</label>
-                <input name="name" type="text" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-4 focus:ring-gray-200" placeholder="Jane Doe" />
+                <input name="name" type="text" value="<%= user.name %>" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-4 focus:ring-gray-200" placeholder="Jane Doe" />
               </div>
               <div>
-                <label class="block text-sm text-gray-600 mb-1">Email</label>
-                <input name="email" type="email" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-4 focus:ring-gray-200" placeholder="jane@example.com" />
+                <label class="block text-sm text-gray-600 mb-1" >Email</label>
+                <input name="email" type="email" value="<%= user.email %>" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-4 focus:ring-gray-200" placeholder="jane@example.com" />
               </div>
               <div>
                 <label for="role" class="block text-sm text-gray-600 mb-1">Role</label>
-                <select name="role" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-4 focus:ring-gray-200">
-                  <option>Viewer</option>
-                  <option>Editor</option>
-                  <option>Manager</option>
-                  <option>Admin</option>
-                </select>
+            <select name="role" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-4 focus:ring-gray-200">
+                <option <%= user.role.toLowerCase() === 'viewer' ? 'selected' : '' %>>Viewer</option>
+                <option <%= user.role.toLowerCase() === 'editor' ? 'selected' : '' %>>Editor</option>
+                <option <%= user.role.toLowerCase() === 'manager' ? 'selected' : '' %>>Manager</option>
+                <option <%= user.role.toLowerCase() === 'admin' ? 'selected' : '' %>>Admin</option>
+            </select>
               </div>
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Status</label>
                 <select name="status" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-4 focus:ring-gray-200">
-                  <option>Active</option>
-                  <option>Invited</option>
-                  <option>Suspended</option>
+                  <option <%= user.status.toLowerCase() === 'active' ? 'selected' : '' %> >Active</option>
+                  <option <%= user.status.toLowerCase() === 'invited' ? 'selected' : '' %> >invited</option>
+                  <option <%= user.status.toLowerCase() === 'suspended' ? 'selected' : '' %> >suspended</option>
                 </select>
               </div>
               <div>
@@ -101,10 +100,6 @@
           <div class="bg-white border rounded-2xl p-5 shadow-sm">
             <h3 class="text-sm font-semibold mb-3">Tips</h3>
             <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
-              <li>This is purely static HTML/CSS; wire it up with your framework or vanilla JS.</li>
-              <li>Buttons and inputs are styled with Tailwind classes.</li>
-              <li>Table is horizontally scrollable on small screens.</li>
-              <li>Replace placeholder data with your real users.</li>
             </ul>
           </div>
         </div>
@@ -112,7 +107,6 @@
     </main>
 
     <footer class="max-w-6xl mx-auto px-4 py-10 text-center text-xs text-gray-500">
-      Built with Tailwind CSS – no JavaScript included.
     </footer>
   </body>
 </html>

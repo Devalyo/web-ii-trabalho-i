@@ -29,23 +29,59 @@ const db = [
     }
 ]
 
-export function select(filter) {
+export function select() {
     return [...db];
 
+}
+
+export function selectById(id)
+{
+    const index = db.findIndex(obj => obj.id == id);
+
+    console.log(db.at(index))
+    return db.at(index);
 }
 
 export function insert(user)
 {
     console.log(user);
+
     let { id } = db.at(db.length - 1)
     return db.push(
         {   
-            id:id,
+            id:id + 1,
             name:user.name,
             username:user.username,
             role:user.role,
             status: user.status,
             email:user.email,
-            createdAt:Date.now()
+            createdAt: new Date().toLocaleDateString()
         })
+}
+
+export function deleteWhereId(id)
+{
+
+    const index = db.findIndex(obj => obj.id == id);
+
+    if(index === -1)
+    {
+        return 404;
+    }
+
+    return db.at(index).role != 'ADMIN'? db.splice(index, 1) : 403;
+}
+
+export function update(user, id)
+{
+
+    user.id = id;
+
+    const index = db.findIndex(obj => obj,id == id);
+
+    db[index] = user;
+
+    console.log(db);
+
+
 }
